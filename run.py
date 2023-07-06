@@ -1,6 +1,6 @@
 import os
 
-from utils import HashTable, save_data_to_csv, read_csv_to_hash_table
+from utils import DATA_PARAMS, HashTable, save_data_to_csv, read_csv_to_hash_table, data_keys_to_csv, save_categories_data_to_csv
 from db_control import get_filtered_data
 from analyzer import classify_text, analyze_completeness
 
@@ -39,11 +39,7 @@ def populate_category_table():
 def populate_completeness_table():
     for key in id_keys:
         data = data_table.get(key)
-        data_description = data.get("description") or {}
-        description_content = data_description.get("general")
-        if not description_content:
-            continue
-        categories = classify_text(description_content)
+        categories = analyze_completeness(data, DATA_PARAMS)
         if categories:
             completeness_table.put(
                 key,
@@ -78,29 +74,42 @@ def main():
             break
 
         elif option == "1":
+            print("Populating data...")
             populate_data_table()
+            print("Done!")
 
         elif option == "2":
             filename = input("Write the filename (with .csv): ")
+            print("Populating data...")
             read_csv_to_hash_table(filename, data_table)
+            print("Done!")
 
         elif option == "3":
+            print("Analysing categories...")
             populate_category_table()
+            print("Done!")
 
         elif option == "4":
+            print("Analysing completeness...")
             populate_completeness_table()
+            print("Done!")
 
         elif option == "5":
             filename = input("Write the destination filename (with .csv): ")
-            save_data_to_csv(id_keys, data_table, filename)
+            keys = data_keys_to_csv()
+            save_data_to_csv(id_keys, data_table, filename, keys)
+            print("Done!")
 
         elif option == "6":
             filename = input("Write the destination filename (with .csv): ")
-            save_data_to_csv(id_keys, category_table, filename)
-        
+            save_categories_data_to_csv(id_keys, category_table, filename)
+            print("Done!")
+
         elif option == "7":
             filename = input("Write the destination filename (with .csv): ")
-            save_data_to_csv(id_keys, completeness_table, filename)
+            keys = ["id", "completeness", "filled_fields", "missing_fields"]
+            save_data_to_csv(id_keys, completeness_table, filename, keys)
+            print("Done!")
 
         else:
             print("Invalid option!")

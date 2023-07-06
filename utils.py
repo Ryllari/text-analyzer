@@ -49,8 +49,7 @@ def get_value_by_key(data, key):
     return value
 
 
-def save_data_to_csv(id_list, table, filename):
-    keys = data_keys_to_csv()
+def save_data_to_csv(id_list, table, filename, keys):
     with open(filename, 'w', newline='') as csvfile:
         writer = csv.writer(csvfile)
         writer.writerow(keys)
@@ -59,6 +58,19 @@ def save_data_to_csv(id_list, table, filename):
                 data = table.get(id)
                 row = [id] + [get_value_by_key(data, key) for key in keys[1:]]
                 writer.writerow(row)
+            except KeyError:
+                pass
+
+def save_categories_data_to_csv(id_list, table, filename):
+    with open(filename, 'w', newline='') as csvfile:
+        writer = csv.writer(csvfile)
+        writer.writerow(["id", "category", "confidence"])
+        for id in id_list:
+            try:
+                data = table.get(id)
+                for c_key, value in data.items():
+                    row = [id, c_key, value]
+                    writer.writerow(row)
             except KeyError:
                 pass
 
