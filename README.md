@@ -1,4 +1,4 @@
-# Text Content Analyzer
+# Text Content Analyzer [en-us]
 
 This project is a text content parser that performs operations on a dataset.
 Developed from a Hash Table base structure, the purpose of this service is to evaluate a set of data in its completeness and categories, starting from a set of expected keys and classes in the composition of the data.
@@ -29,7 +29,7 @@ Based on user interaction, this tool provides the following features:
 
 - Export Data Categories as CSV File: Exports the categories table to a CSV file.
 
-- Export Data Integrity as CSV File: Exports the integrity table to a CSV file.
+- Export Data Completeness as CSV File: Exports the completeness table to a CSV file.
 
 
 The purpose of this tool is to validate whether data meets standard requirements to belong to a given dataset.
@@ -46,6 +46,62 @@ To run the project, you need to follow these steps:
 pip install -r requirements.txt
 ```
 - Run the run.py file:
+```
+python run.py
+```
+
+
+---
+
+
+# Analisador de conteúdo de texto [pt-br]
+
+Este projeto é um analisador de conteúdo de texto que executa operações em um conjunto de dados.
+Desenvolvido a partir de uma estrutura base Hash Table, o objetivo deste serviço é avaliar um conjunto de dados em sua completude e categorias, a partir de um conjunto de chaves e classes esperadas na composição dos dados.
+O analisador de conteúdo de texto é uma ferramenta útil para analisar dados e extrair informações valiosas sobre eles.
+
+## Como funciona
+
+Este projeto usa a API Google Cloud Natural Language para fazer a análise.
+
+Os dados manipulados durante o uso da ferramenta são armazenados em tempo de execução em três Tabelas Hash que podem ser exportadas ou importadas para arquivos .csv, são elas:
+- `data_table`: Armazena os dados brutos a serem analisados
+- `category_table`: Armazena os dados relacionados à análise das categorias relacionadas ao conteúdo do texto que são compatíveis com a lista de conteúdo fornecida
+- `completeness_table`: Armazena dados referentes à análise de completude dos dados fornecidos, verificando a existência de todas as informações de uma lista de chaves fornecida.
+
+
+### Funcionalidades
+Com base na interação do usuário, esta ferramenta fornece os seguintes recursos:
+
+- Preencher tabela de dados do banco de dados remoto configurado: Recupera os dados existentes no banco de dados e preenche a tabela de dados a ser manipulada.
+
+- Preencher tabela de dados do arquivo CSV: Lê os dados de um arquivo CSV e preenche a tabela de dados a ser manipulada.
+
+- Analisar categorias de dados: analisa as categorias de dados com base no conteúdo da descrição de dados e preenche a tabela de categorias com as informações resultantes para cada entrada.
+
+- Analisar a completude dos dados: analisa a completude dos dados com base na estrutura dos dados e na existência dos valores de seus campos.
+
+- Exportar tabela de dados como arquivo CSV: Exporta a tabela de dados para um arquivo CSV.
+
+- Exportar categorias de dados como arquivo CSV: exporta a tabela de categorias para um arquivo CSV.
+
+- Exportar completude de dados como arquivo CSV: exporta a tabela de completude para um arquivo CSV.
+
+
+O objetivo desta ferramenta é validar se os dados atendem aos requisitos padrão para pertencer a um determinado conjunto de dados.
+
+---
+
+## Executando o projeto
+Para executar o projeto, você precisa seguir estas etapas:
+
+- Clone este repositório de projeto.
+- Crie o arquivo .env com base em sample.env e defina as variáveis ​​de ambiente
+- Em um ambiente com Python 3, instale as dependências necessárias executando o seguinte comando:
+```
+pip install -r requirements.txt
+```
+- Execute o arquivo run.py:
 ```
 python run.py
 ```
